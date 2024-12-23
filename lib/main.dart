@@ -115,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 stream: myBloc.stateStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    _counter = snapshot.data ?? 0;
                     return Text(
                       '${snapshot.data}',
                       style: Theme.of(context).textTheme.headlineMedium,
@@ -128,7 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _counter++;
           myBloc.eventStreamSink.add(_counter);
         },
         tooltip: 'Increment',

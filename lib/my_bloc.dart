@@ -14,7 +14,19 @@ class MyBloc {
   MyBloc() {
     eventStream.listen((event) {
       print(event);
+      buissinessLogic(event);
       stateStreamSink.add(event);
     });
   }
+
+  void buissinessLogic(event) {
+    event++;
+  }
+}
+
+abstract class Event {}
+
+class IncrementEvent extends Event {
+  int value;
+  IncrementEvent({required this.value});
 }
