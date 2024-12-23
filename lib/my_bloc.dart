@@ -1,8 +1,20 @@
 import 'dart:async';
 
 class MyBloc {
-  StreamController<int> stateStreamController = StreamController<int>();
+  final StreamController<int> _stateStreamController = StreamController<int>();
 
-  StreamSink get stateStreamSink => stateStreamController.sink;
-  Stream<int> get stateStream => stateStreamController.stream;
+  StreamSink get stateStreamSink => _stateStreamController.sink;
+  Stream<int> get stateStream => _stateStreamController.stream;
+
+  final StreamController<int> _eventStreamController = StreamController<int>();
+
+  StreamSink get eventStreamSink => _eventStreamController.sink;
+  Stream<int> get eventStream => _eventStreamController.stream;
+
+  MyBloc() {
+    eventStream.listen((event) {
+      print(event);
+      stateStreamSink.add(event);
+    });
+  }
 }
