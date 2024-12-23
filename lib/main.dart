@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -113,10 +114,14 @@ class _MyHomePageState extends State<MyHomePage> {
             StreamBuilder<int>(
                 stream: myBloc.stream,
                 builder: (context, snapshot) {
-                  return Text(
-                    '${snapshot.data}',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  );
+                  if (snapshot.hasData) {
+                    return Text(
+                      '${snapshot.data}',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
                 }),
           ],
         ),
